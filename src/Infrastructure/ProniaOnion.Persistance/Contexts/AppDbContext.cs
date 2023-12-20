@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -21,10 +22,8 @@ namespace ProniaOnion.Persistance.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Product>().Property(p=>p.Price).HasColumnType("decimal(6,2)");
-            modelBuilder.Entity<Product>().Property(p => p.Description).IsRequired(false).HasColumnType("text");
-            modelBuilder.Entity<Product>().Property(p => p.Name).IsRequired().HasMaxLength(100);
-            modelBuilder.Entity<Product>().Property(p => p.SKU).HasMaxLength(10);
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
             base.OnModelCreating(modelBuilder);
         }
     }
