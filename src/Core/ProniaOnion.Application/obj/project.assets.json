@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    "net6.0": {}
+    "net6.0": {
+      "ProniaOnion.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/ProniaOnion.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ProniaOnion.Domain.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "ProniaOnion.Domain/1.0.0": {
+      "type": "project",
+      "path": "../ProniaOnion.Domain/ProniaOnion.Domain.csproj",
+      "msbuildProject": "../ProniaOnion.Domain/ProniaOnion.Domain.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    "net6.0": []
+    "net6.0": [
+      "ProniaOnion.Domain >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\Muslum\\.nuget\\packages\\": {},
@@ -38,7 +57,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\Muslum\\Desktop\\ProniaOnion\\src\\Core\\ProniaOnion.Domain\\ProniaOnion.Domain.csproj": {
+              "projectPath": "C:\\Users\\Muslum\\Desktop\\ProniaOnion\\src\\Core\\ProniaOnion.Domain\\ProniaOnion.Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
