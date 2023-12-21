@@ -8,6 +8,6 @@ namespace ProniaOnion.Application.Abstractions.Services
         Task<ICollection<CategoryItemDto>> GetAllAsync(int page, int take);
         //Task<GetCategoryDto> GetByIdAsync(int id);
         Task CreateAsync(CategoryCreateDto categoryDto);
-        Task UpdateAsync(int id, string name);
+        Task UpdateAsync(int id, CategoryUpdateDto dto);
     }
 }

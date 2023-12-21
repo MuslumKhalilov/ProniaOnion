@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -53,11 +54,11 @@ namespace ProniaOnion.Persistance.Implementations.Services
         //    return dto;
         //}
 
-        public async Task UpdateAsync(int id, string name)
+        public async Task UpdateAsync(int id,  CategoryUpdateDto dto)
         {
             Category category = await _repository.GetByIDAsync(id);
             if (category is null) throw new Exception("Not found");
-            category.Name = name;
+            _mapper.Map(dto, category);
             await _repository.SaveChangesAsync();
         }
     }
