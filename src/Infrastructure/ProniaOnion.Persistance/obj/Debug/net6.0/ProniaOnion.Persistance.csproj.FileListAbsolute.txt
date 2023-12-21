@@ -15,3 +15,5 @@ C:\Users\Muslum\Desktop\ProniaOnion\src\Infrastructure\ProniaOnion.Persistance\o
 C:\Users\Muslum\Desktop\ProniaOnion\src\Infrastructure\ProniaOnion.Persistance\obj\Debug\net6.0\refint\ProniaOnion.Persistance.dll
 C:\Users\Muslum\Desktop\ProniaOnion\src\Infrastructure\ProniaOnion.Persistance\obj\Debug\net6.0\ProniaOnion.Persistance.pdb
 C:\Users\Muslum\Desktop\ProniaOnion\src\Infrastructure\ProniaOnion.Persistance\obj\Debug\net6.0\ref\ProniaOnion.Persistance.dll
+C:\Users\Muslum\Desktop\ProniaOnion\src\Infrastructure\ProniaOnion.Persistance\bin\Debug\net6.0\ProniaOnion.Persistance.runtimeconfig.json
+C:\Users\Muslum\Desktop\ProniaOnion\src\Infrastructure\ProniaOnion.Persistance\obj\Debug\net6.0\ProniaOnion.Persistance.genruntimeconfig.cache
