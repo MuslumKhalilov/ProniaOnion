@@ -14,5 +14,6 @@ namespace ProniaOnion.Domain.Entities
         public int CategoryId { get; set; }
         public Category Category { get; set; }= null!;
         public ICollection<ProductColor>? productColors { get; set; }
+        public ICollection<ProductTag>? productTags { get; set; }
     }
 }
