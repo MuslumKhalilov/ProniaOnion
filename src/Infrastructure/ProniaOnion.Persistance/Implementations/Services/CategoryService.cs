@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using ProniaOnion.Application.Abstractions.Repositories;
 using ProniaOnion.Application.Abstractions.Services;
@@ -14,15 +15,17 @@ namespace ProniaOnion.Persistance.Implementations.Services
     public class CategoryService : ICategoryService
     {
         private readonly ICategoryRepository _repository;
+        private readonly IMapper _mapper;
 
-        public CategoryService(ICategoryRepository repository)
+        public CategoryService(ICategoryRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         public async Task CreateAsync(CategoryCreateDto categoryDto)
         {
-            await _repository.AddAsync(new Category { Name = categoryDto.Name });
+            await _repository.AddAsync(_mapper.Map<Category>(categoryDto));
             await _repository.SaveChangesAsync();
         }
 
@@ -38,12 +41,8 @@ namespace ProniaOnion.Persistance.Implementations.Services
         public async Task<ICollection<CategoryItemDto>> GetAllAsync(int page, int take)
         {
             ICollection<Category> categories = await _repository.GetAllAsync(skip: (page - 1) * take, take: take, isTracking: false).ToListAsync();
-            ICollection<CategoryItemDto> getCategoryDtos = new List<CategoryItemDto>();
-            foreach (var category in categories)
-            {
-                getCategoryDtos.Add(new CategoryItemDto(category.Id,category.Name));
-            }
-            return getCategoryDtos;
+            ICollection<CategoryItemDto> categoryDtos = _mapper.Map<ICollection<CategoryItemDto>>(categories);
+            return categoryDtos;
         }
 
         //public async Task<GetCategoryDto> GetByIdAsync(int id)
