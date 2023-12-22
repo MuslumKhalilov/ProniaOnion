@@ -26,6 +26,8 @@ namespace ProniaOnion.Persistance.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Category>().HasQueryFilter(c=>c.IsDeleted==false);
+            modelBuilder.Entity<Tag>().HasQueryFilter(c => c.IsDeleted == false);
+
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             base.OnModelCreating(modelBuilder);
