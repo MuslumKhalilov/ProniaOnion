@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,25 @@ namespace ProniaOnion.Persistance.Contexts
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             base.OnModelCreating(modelBuilder);
+        }
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            var entites = ChangeTracker.Entries<BaseEntity>();
+            foreach (var data in entites)
+            {
+                switch (data.State)
+                {
+                    case EntityState.Added:
+                        data.Entity.CreatedAt = DateTime.Now;
+                        break;
+                    case EntityState.Modified:
+                        data.Entity.ModifiedAt = DateTime.Now;
+                        break;
+
+                    
+                }
+            }
+            return base.SaveChangesAsync(cancellationToken);
         }
     }
 }
