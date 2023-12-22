@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using ProniaOnion.Application.Abstractions.Repositories;
 using ProniaOnion.Application.Abstractions.Services;
@@ -27,6 +28,14 @@ namespace ProniaOnion.Persistance.Implementations.Services
         public async Task CreateAsync(CategoryCreateDto categoryDto)
         {
             await _repository.AddAsync(_mapper.Map<Category>(categoryDto));
+            await _repository.SaveChangesAsync();
+        }
+
+        public async Task SoftDeleteAsync(int id)
+        {
+            Category category= await _repository.GetByIDAsync(id);
+            if (category is null) throw new Exception("Not Found");
+            _repository.SoftDeleteAsync(category);
             await _repository.SaveChangesAsync();
         }
 
