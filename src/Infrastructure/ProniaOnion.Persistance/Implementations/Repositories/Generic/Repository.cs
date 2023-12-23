@@ -72,7 +72,7 @@ namespace ProniaOnion.Persistance.Implementations.Repositories.Generic
             }
             if (skip != 0) { query = query.Skip(skip); }
             if (take != 0) { query.Take(take); }
-            if (isDeleted is true) query = query.IgnoreQueryFilters();
+            //if (isDeleted is true) query = query.IgnoreQueryFilters();
 
             return isTracking ? query : query.AsNoTracking();
         }

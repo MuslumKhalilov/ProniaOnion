@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ProniaOnion.Domain.Entities;
+using ProniaOnion.Persistance.Common;
 
 namespace ProniaOnion.Persistance.Contexts
 {
@@ -25,8 +26,7 @@ namespace ProniaOnion.Persistance.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Category>().HasQueryFilter(c=>c.IsDeleted==false);
-            modelBuilder.Entity<Tag>().HasQueryFilter(c => c.IsDeleted == false);
+            modelBuilder.ApplyQueryFilters();
 
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 

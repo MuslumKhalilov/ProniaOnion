@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace ProniaOnion.Application.ServiceRegistration
@@ -15,7 +16,7 @@ namespace ProniaOnion.Application.ServiceRegistration
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
-            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+            services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters().AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             return services;
         }
     }
