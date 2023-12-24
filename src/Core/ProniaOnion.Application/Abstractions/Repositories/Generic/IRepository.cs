@@ -10,20 +10,27 @@ namespace ProniaOnion.Application.Abstractions.Repositories
 {
     public interface IRepository<T> where T : BaseEntity, new()   
     {
-        IQueryable<T> GetAllAsync(
+        IQueryable<T> GetAll(
+            bool isTracking= true,
+            bool ignoreQuery=false,
+            params string[] includes);
+        IQueryable<T> GetAllWhere(
           Expression<Func<T, bool>>? expression = null,
           Expression<Func<T, object>>? orderExpression = null,
           bool isDescending = false,
           int skip = 0,
           int take = 0,
           bool isTracking = true,
-          bool isDeleted = true,
+          bool ignoreQuery = false,
           params string[] includes);
 
-        Task<T> GetByIDAsync(int id);
+        Task<T> GetByIDAsync(int id, bool isTracking=true,bool ignoreQuery=false,params string[] includes);
+        Task<T> GetByExpressionAsync(Expression<Func<T, bool>>? expression = null,bool isTracking = true,bool ignoreQuery = false,params string[] includes);
+        Task<T> IsExistAsync(Expression<Func<T, bool>>? expression = null, bool ignoreQuery = false);
         Task AddAsync(T entity);
         void DeleteAsync(T entity);
         void SoftDeleteAsync(T entity);
+        void ReverseSoftDeleteAsync(T entity);
         void Update(T entity);
         Task SaveChangesAsync();
     }
