@@ -11,5 +11,6 @@ namespace ProniaOnion.Application.Abstractions.Services
     {
         Task<IEnumerable<ProductItemDto>> GetAllPaginated(int page, int take);
         Task<ProductGetDto> GetByIdAsync(int id);
+        Task CreateAsync(ProductCreatedDto dto);
     };
 }

@@ -32,5 +32,10 @@ namespace ProniaOnion.Persistance.Implementations.Services
             ProductGetDto dto = _mapper.Map<ProductGetDto>(await _repository.GetByIDAsync(id,includes:nameof(Product.Category)));
             return dto;
         }
+        public async Task CreateAsync(ProductCreatedDto dto)
+        {
+            await _repository.AddAsync(_mapper.Map<Product>(dto));
+            await _repository.SaveChangesAsync();
+        }
     }
 }

@@ -26,5 +26,11 @@ namespace ProniaOnion.API.Controllers
         {
             return Ok(await _service.GetByIdAsync(id));
         }
+        [HttpPost]
+        public async Task<IActionResult> Create(ProductCreatedDto dto)
+        {
+            await _service.CreateAsync(dto);
+            return StatusCode(StatusCodes.Status201Created);
+        }
     }
 }
