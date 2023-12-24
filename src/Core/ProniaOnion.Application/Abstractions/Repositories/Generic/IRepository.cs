@@ -26,7 +26,7 @@ namespace ProniaOnion.Application.Abstractions.Repositories
 
         Task<T> GetByIDAsync(int id, bool isTracking=true,bool ignoreQuery=false,params string[] includes);
         Task<T> GetByExpressionAsync(Expression<Func<T, bool>>? expression = null,bool isTracking = true,bool ignoreQuery = false,params string[] includes);
-        Task<T> IsExistAsync(Expression<Func<T, bool>>? expression = null, bool ignoreQuery = false);
+        Task<bool> IsExistAsync(Expression<Func<T, bool>>? expression = null, bool ignoreQuery = false);
         Task AddAsync(T entity);
         void DeleteAsync(T entity);
         void SoftDeleteAsync(T entity);
