@@ -41,7 +41,7 @@ namespace ProniaOnion.Persistance.Implementations.Services
 
         public async Task<ICollection<TagItemDto>> GetAllAsync(int page, int take)
         {
-            ICollection<Tag> tags = await _repository.GetAllAsync(skip: (page - 1) * take, take: take, isTracking: false).ToListAsync();
+            ICollection<Tag> tags = await _repository.GetAllWhere(skip: (page - 1) * take, take: take, isTracking: false).ToListAsync();
             ICollection<TagItemDto> tagItemDtos = _mapper.Map<ICollection<TagItemDto>>(tags);
             return tagItemDtos;
         }
