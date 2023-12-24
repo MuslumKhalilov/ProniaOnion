@@ -34,6 +34,11 @@ namespace ProniaOnion.Persistance.Implementations.Services
         }
         public async Task CreateAsync(ProductCreatedDto dto)
         {
+            var result= await _repository.IsExistAsync(x=>x.Name==dto.name);
+            if (result)
+            {
+                throw new Exception("Name already exists");
+            }
             await _repository.AddAsync(_mapper.Map<Product>(dto));
             await _repository.SaveChangesAsync();
         }
