@@ -39,6 +39,11 @@ namespace ProniaOnion.Persistance.Implementations.Services
             {
                 throw new Exception("Name already exists");
             }
+            var result1 = await _repository.IsExistAsync(x=>x.CategoryId==dto.CategoryId);
+            if (!result1)
+            {
+                throw new Exception("Category doesn't exist");
+            }
             await _repository.AddAsync(_mapper.Map<Product>(dto));
             await _repository.SaveChangesAsync();
         }
