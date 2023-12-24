@@ -51,7 +51,7 @@ namespace ProniaOnion.Persistance.Implementations.Repositories.Generic
 
         public  IQueryable<T> GetAll(bool isTracking = true, bool ignoreQuery = false, params string[] includes)
         {
-            IQueryable<T> query =  _table.AsQueryable();
+            IQueryable<T> query =  _table;
             if (!ignoreQuery)
             {
                 query = query.IgnoreQueryFilters();
