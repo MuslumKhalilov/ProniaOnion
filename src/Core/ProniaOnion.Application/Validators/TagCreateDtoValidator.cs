@@ -8,7 +8,7 @@ using ProniaOnion.Domain.Entities;
 
 namespace ProniaOnion.Application.Validators
 {
-    internal class TagCreateDtoValidator:AbstractValidator<Tag>
+    public class TagCreateDtoValidator:AbstractValidator<Tag>
     {
         public TagCreateDtoValidator()
         {

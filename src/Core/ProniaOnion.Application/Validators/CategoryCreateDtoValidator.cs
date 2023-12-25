@@ -8,7 +8,7 @@ using ProniaOnion.Application.Dtos.Categories;
 
 namespace ProniaOnion.Application.Validators
 {
-    internal class CategoryCreateDtoValidator:AbstractValidator<CategoryCreateDto>
+    public class CategoryCreateDtoValidator:AbstractValidator<CategoryCreateDto>
     {
         public CategoryCreateDtoValidator()
         {

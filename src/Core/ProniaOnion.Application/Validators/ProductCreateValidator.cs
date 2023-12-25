@@ -8,12 +8,13 @@ using ProniaOnion.Application.Dtos.Products;
 
 namespace ProniaOnion.Application.Validators
 {
-    internal class ProductCreateValidator:AbstractValidator<ProductCreatedDto>
+    public class ProductCreateValidator:AbstractValidator<ProductCreatedDto>
     {
       
         public ProductCreateValidator()
         {
-            RuleFor(x => x.CategoryId).NotEmpty().GreaterThan(0).WithMessage("Id 0 dan boyuk olmalidir");
+            RuleFor(x => x.CategoryId).NotEmpty().GreaterThan(0).WithMessage("Id should be greater than 0");
+            RuleForEach(x => x.ColorIds).GreaterThan(0).WithMessage("Id should be greater than 0");
         }
     }
 }

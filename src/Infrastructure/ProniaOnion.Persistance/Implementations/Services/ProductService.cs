@@ -15,11 +15,13 @@ namespace ProniaOnion.Persistance.Implementations.Services
     {
         private readonly IProductRepository _repository;
         private readonly IMapper _mapper;
+        private readonly IColorRepository _colorRepository;
 
-        public ProductService(IProductRepository repository, IMapper mapper)
+        public ProductService(IProductRepository repository, IMapper mapper,IColorRepository colorRepository)
         {
                 _repository = repository;
                 _mapper = mapper;
+            _colorRepository = colorRepository;
         }
         public async Task<IEnumerable<ProductItemDto>> GetAllPaginated(int page,int take)
         {
@@ -34,17 +36,27 @@ namespace ProniaOnion.Persistance.Implementations.Services
         }
         public async Task CreateAsync(ProductCreatedDto dto)
         {
-            var result= await _repository.IsExistAsync(x=>x.Name==dto.name);
+            Product product = _mapper.Map<Product>(dto); 
+            var result = await _repository.IsExistAsync(x => x.Name == dto.name);
             if (result)
             {
                 throw new Exception("Name already exists");
             }
-            var result1 = await _repository.IsExistAsync(x=>x.CategoryId==dto.CategoryId);
+            var result1 = await _repository.IsExistAsync(x => x.CategoryId == dto.CategoryId);
             if (!result1)
             {
                 throw new Exception("Category doesn't exist");
             }
-            await _repository.AddAsync(_mapper.Map<Product>(dto));
+            product.productColors= new List<ProductColor>();
+            foreach (var colorId in dto.ColorIds)
+            {
+                if (!await _colorRepository.IsExistAsync(x=>x.Id==colorId))
+                {
+                    throw new Exception("Color doesn't exist");
+                }
+                product.productColors.Add(new ProductColor { ColorId=colorId});
+            }
+            await _repository.AddAsync(product);
             await _repository.SaveChangesAsync();
         }
     }
