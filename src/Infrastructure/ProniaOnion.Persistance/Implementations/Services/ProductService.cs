@@ -59,5 +59,27 @@ namespace ProniaOnion.Persistance.Implementations.Services
             await _repository.AddAsync(product);
             await _repository.SaveChangesAsync();
         }
+        public async Task UpdateAsync(int id,ProductUpdateDto dto)
+        {
+            Product existed = await _repository.GetByIDAsync(id);
+            if (existed == null) throw new Exception("Not Found");
+            if (existed.CategoryId != dto.CategoryId)
+                if (!await _repository.IsExistAsync(x => x.Id == dto.CategoryId)) throw new Exception("Category doesn't exist");
+            existed = _mapper.Map(dto,existed);
+            existed.productColors = existed.productColors.Where(pc=>dto.ColorIds.Any(colId=>pc.ColorId==colId)).ToList();
+            foreach (var cId in dto.ColorIds)
+            {
+                if(!await _repository.IsExistAsync(x=>x.Id==cId)) throw new Exception("Color doesn't exist");
+                if (existed.productColors.Any(pc => pc.ColorId == cId))
+                {
+                    existed.productColors.Add(new ProductColor { ColorId=cId});
+                }
+            }
+             _repository.Update(existed);
+            await _repository.SaveChangesAsync();
+
+
+
+        }
     }
 }

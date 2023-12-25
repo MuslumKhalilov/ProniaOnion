@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProniaOnion.Application.Dtos.Products
 {
-    public record ProductUpdateDto(string name, string SKU, string? Description, decimal price);
+    public record ProductUpdateDto(string name, string SKU, string? Description, decimal price,int CategoryId, ICollection<int> ColorIds);
     
     
 }
