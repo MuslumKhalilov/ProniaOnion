@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace ProniaOnion.Application.Dtos.Account
 {
-    public record RegisterDto(string Name,string Surname,string Username,string Email, string Password,string ConfirmPassword)
+    public record RegisterDto(string Name,string Surname,string Username,string Email, string Password,string ConfirmPassword);
     
 }

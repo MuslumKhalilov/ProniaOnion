@@ -10,7 +10,7 @@ using ProniaOnion.Domain.Entities;
 
 namespace ProniaOnion.Persistance.Implementations.Services
 {
-    internal class AuthenticationService : IAuthenticationService
+    public class AuthenticationService : IAuthenticationService
     {
         private readonly UserManager<AppUser> _userManager;
 
