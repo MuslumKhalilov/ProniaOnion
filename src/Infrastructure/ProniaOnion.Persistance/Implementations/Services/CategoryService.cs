@@ -70,5 +70,14 @@ namespace ProniaOnion.Persistance.Implementations.Services
             _mapper.Map(dto, category);
             await _repository.SaveChangesAsync();
         }
+
+        public async Task<CategoryItemDto> GetByIdAsync(int id)
+        {
+            if (id <= 0) throw new Exception("Id should not be negative");
+            Category category = await _repository.GetByIDAsync(id);
+            if (category is null) throw new Exception("Category doesn't exist");
+            CategoryItemDto dto = _mapper.Map<CategoryItemDto>(category);
+            return dto;
+        }
     }
 }
