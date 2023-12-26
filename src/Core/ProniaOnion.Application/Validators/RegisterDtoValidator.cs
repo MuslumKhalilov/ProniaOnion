@@ -15,7 +15,7 @@ namespace ProniaOnion.Application.Validators
             RuleFor(x=>x.Name).NotEmpty().MinimumLength(3).MaximumLength(50);
             RuleFor(x => x.Surname).NotEmpty().MinimumLength(3).MaximumLength(50);
             RuleFor(x => x.Username).NotEmpty().MinimumLength(4).MaximumLength(50);
-            RuleFor(x => x.Email).NotEmpty().MinimumLength(4).MaximumLength(256);
+            RuleFor(x => x.Email).NotEmpty().MinimumLength(4).MaximumLength(256).EmailAddress();
             RuleFor(x => x).Must(x => x.Password == x.ConfirmPassword);
         }
     }
