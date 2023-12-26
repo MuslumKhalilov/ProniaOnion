@@ -79,5 +79,19 @@ namespace ProniaOnion.Persistance.Implementations.Services
             CategoryItemDto dto = _mapper.Map<CategoryItemDto>(category);
             return dto;
         }
+
+        public async Task DeleteAsync(int id)
+        {
+            Category category = await _repository.GetByIDAsync(id);
+             _repository.DeleteAsync(category);
+            await _repository.SaveChangesAsync();
+        }
+
+        public async Task ReverseSoftDeleteAsync(int id)
+        {
+            Category category = await _repository.GetByIDAsync(id);
+            _repository.ReverseSoftDeleteAsync(category);
+            await _repository.SaveChangesAsync();
+        }
     }
 }
