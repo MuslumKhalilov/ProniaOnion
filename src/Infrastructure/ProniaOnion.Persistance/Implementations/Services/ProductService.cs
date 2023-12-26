@@ -81,5 +81,32 @@ namespace ProniaOnion.Persistance.Implementations.Services
 
 
         }
+
+        public async Task SoftDeleteAsync(int id)
+        {
+            if (id <= 0) throw new Exception("Id should not be negative");
+            Product product = await _repository.GetByIDAsync(id);
+            if (product is null) throw new Exception("Product doesn't exist");
+            _repository.SoftDeleteAsync(product);
+            await _repository.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            if (id <= 0) throw new Exception("Id should not be negative");
+            Product product = await _repository.GetByIDAsync(id);
+            if (product is null) throw new Exception("Product doesn't exist");
+            _repository.DeleteAsync(product);
+            await _repository.SaveChangesAsync();
+        }
+
+        public async Task ReverseSoftDeleteAsync(int id)
+        {
+            if (id <= 0) throw new Exception("Id should not be negative");
+            Product product = await _repository.GetByIDAsync(id);
+            if (product is null) throw new Exception("Product doesn't exist");
+            _repository.ReverseSoftDeleteAsync(product);
+            await _repository.SaveChangesAsync();
+        }
     }
 }
