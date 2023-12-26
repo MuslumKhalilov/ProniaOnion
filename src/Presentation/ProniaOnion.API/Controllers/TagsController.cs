@@ -22,7 +22,13 @@ namespace ProniaOnion.API.Controllers
 
             return Ok(await _service.GetAllAsync(page, take));
         }
-        
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+
+            return Ok(await _service.GetByIdAsync(id));
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create([FromForm] TagCreateDto tagCreateDto)
         {
@@ -38,6 +44,24 @@ namespace ProniaOnion.API.Controllers
             }
             await _service.UpdateAsync(id, dto);
 
+            return NoContent();
+        }
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> Delete(int id)
+        //{
+        //    await _service.DeleteAsync(id);
+        //    return NoContent();
+        //}
+        //[HttpDelete("{id}")]
+        //public async Task<IActionResult> SoftDelete(int id)
+        //{
+        //    await _service.SoftDeleteAsync(id);
+        //    return NoContent();
+        //}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> ReverseSoftDelete(int id)
+        {
+            await _service.ReverseSoftDeleteAsync(id);
             return NoContent();
         }
     }

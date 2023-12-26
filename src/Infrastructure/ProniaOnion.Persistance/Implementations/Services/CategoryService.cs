@@ -66,7 +66,7 @@ namespace ProniaOnion.Persistance.Implementations.Services
         public async Task UpdateAsync(int id,  CategoryUpdateDto dto)
         {
             Category category = await _repository.GetByIDAsync(id);
-            if (category is null) throw new Exception("Not found");
+            if (category is null) throw new Exception("Category doesn't exist");
             _mapper.Map(dto, category);
             await _repository.SaveChangesAsync();
         }
@@ -82,14 +82,18 @@ namespace ProniaOnion.Persistance.Implementations.Services
 
         public async Task DeleteAsync(int id)
         {
+            if (id <= 0) throw new Exception("Id should not be negative");
             Category category = await _repository.GetByIDAsync(id);
-             _repository.DeleteAsync(category);
+            if (category is null) throw new Exception("Category doesn't exist");
+            _repository.DeleteAsync(category);
             await _repository.SaveChangesAsync();
         }
 
         public async Task ReverseSoftDeleteAsync(int id)
         {
+            if (id <= 0) throw new Exception("Id should not be negative");
             Category category = await _repository.GetByIDAsync(id);
+            if (category is null) throw new Exception("Category doesn't exist");
             _repository.ReverseSoftDeleteAsync(category);
             await _repository.SaveChangesAsync();
         }

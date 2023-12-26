@@ -11,8 +11,11 @@ namespace ProniaOnion.Application.Abstractions.Services
     public interface ITagService
     {
         Task<ICollection<TagItemDto>> GetAllAsync(int page, int take);
-        //Task<GetCategoryDto> GetByIdAsync(int id);
+        Task<TagItemDto> GetByIdAsync(int id);
         Task CreateAsync(TagCreateDto categoryDto);
         Task UpdateAsync(int id, TagUpdateDto dto);
+        Task SoftDeleteAsync(int id);
+        Task DeleteAsync(int id);
+        Task ReverseSoftDeleteAsync(int id);
     }
 }

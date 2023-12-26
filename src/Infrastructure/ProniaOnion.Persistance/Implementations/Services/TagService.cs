@@ -30,6 +30,15 @@ namespace ProniaOnion.Persistance.Implementations.Services
             await _repository.SaveChangesAsync();
         }
 
+        public async Task DeleteAsync(int id)
+        {
+            if (id <= 0) throw new Exception("Id should not be negative");
+            Tag tag = await _repository.GetByIDAsync(id);
+            if (tag is null) throw new Exception("Tag doesn't exist");
+            _repository.DeleteAsync(tag);
+            await _repository.SaveChangesAsync();
+        }
+
         //public async Task DeleteAsync(int id)
         //{
         //    Category category = await _repository.GetByIDAsync(id);
@@ -44,6 +53,34 @@ namespace ProniaOnion.Persistance.Implementations.Services
             ICollection<Tag> tags = await _repository.GetAllWhere(skip: (page - 1) * take, take: take, isTracking: false).ToListAsync();
             ICollection<TagItemDto> tagItemDtos = _mapper.Map<ICollection<TagItemDto>>(tags);
             return tagItemDtos;
+        }
+
+        public async Task<TagItemDto> GetByIdAsync(int id)
+        {
+            if (id <= 0) throw new Exception("Id should not be negative");
+            Tag tag = await _repository.GetByIDAsync(id);
+            if (tag is null) throw new Exception("Tag doesn't exist");
+            TagItemDto dto = _mapper.Map<TagItemDto>(tag);
+            return dto; 
+            
+        }
+
+        public async Task ReverseSoftDeleteAsync(int id)
+        {
+            if (id <= 0) throw new Exception("Id should not be negative");
+            Tag tag = await _repository.GetByIDAsync(id);
+            if (tag is null) throw new Exception("Tag doesn't exist");
+            _repository.ReverseSoftDeleteAsync(tag);
+            await _repository.SaveChangesAsync();
+        }
+
+        public async Task SoftDeleteAsync(int id)
+        {
+            if (id <= 0) throw new Exception("Id should not be negative");
+            Tag tag = await _repository.GetByIDAsync(id);
+            if (tag is null) throw new Exception("Tag doesn't exist");
+            _repository.SoftDeleteAsync(tag);
+            await _repository.SaveChangesAsync();
         }
 
         //public async Task<GetCategoryDto> GetByIdAsync(int id)
