@@ -17,18 +17,30 @@ namespace ProniaOnion.Persistance.Implementations.Services
         private readonly UserManager<AppUser> _userManager;
         private readonly IMapper _mapper;
 
-        public AuthenticationService(UserManager<AppUser> userManager,IMapper mapper)
+        public AuthenticationService(UserManager<AppUser> userManager, IMapper mapper)
         {
             _userManager = userManager;
-            _mapper= mapper;
+            _mapper = mapper;
         }
+
+        public async Task Login(LoginDto dto)
+        {
+            AppUser user = await _userManager.FindByNameAsync(dto.UsernameOrEmail);
+                if (user is null)
+            {
+                user = await _userManager.FindByEmailAsync(dto.UsernameOrEmail);
+                if (user is null) throw new Exception("Username,Email or Password incorrect");
+            }
+                if(!await _userManager.CheckPasswordAsync(user,dto.Password)) throw new Exception("Username,Email or Password incorrect");
+        }
+
         public async Task Register(RegisterDto dto)
         {
-            
-            AppUser user =await _userManager.Users.FirstOrDefaultAsync(u=>u.Email==dto.Name ||u.Email==dto.Username);
+
+            AppUser user = await _userManager.Users.FirstOrDefaultAsync(u => u.Email == dto.Email || u.UserName == dto.Username);
             if (user != null) throw new Exception("Account with this name already exists");
             user = _mapper.Map<AppUser>(dto);
-            var result= await _userManager.CreateAsync(user,dto.Password);
+            var result = await _userManager.CreateAsync(user, dto.Password);
             if (!result.Succeeded)
             {
                 StringBuilder sb = new StringBuilder();

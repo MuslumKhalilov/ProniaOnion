@@ -10,5 +10,6 @@ namespace ProniaOnion.Application.Abstractions.Services
     public interface IAuthenticationService
     {
         Task Register(RegisterDto dto);
+        Task Login(LoginDto dto);
     }
 }
