@@ -12,11 +12,11 @@ namespace ProniaOnion.Application.Validators
     {
         public RegisterDtoValidator()
         {
-            RuleFor(x=>x.Name).NotEmpty().MinimumLength(3).MaximumLength(50);
-            RuleFor(x => x.Surname).NotEmpty().MinimumLength(3).MaximumLength(50);
-            RuleFor(x => x.Username).NotEmpty().MinimumLength(4).MaximumLength(50);
-            RuleFor(x => x.Email).NotEmpty().MinimumLength(4).MaximumLength(256).EmailAddress();
-            RuleFor(x => x).Must(x => x.Password == x.ConfirmPassword);
+            RuleFor(x=>x.Name).NotEmpty().WithMessage("Name Required").MinimumLength(3).WithMessage("Name should contain minimum 3 characters").MaximumLength(50).WithMessage("Name should contain maximum 50 characters");
+            RuleFor(x => x.Surname).NotEmpty().WithMessage("Surname Required").MinimumLength(3).WithMessage("Surname should contain minimum 3 characters").MaximumLength(50).WithMessage("Surname should contain maximum 50 characters");
+            RuleFor(x => x.Username).NotEmpty().WithMessage("Username Required").MinimumLength(4).WithMessage("Username should contain minimum 4 characters").MaximumLength(50).WithMessage("Username should contain maximum 50 characters");
+            RuleFor(x => x.Email).NotEmpty().WithMessage("Email Required").MinimumLength(4).WithMessage("Email should contain minimum 4 characters").MaximumLength(256).EmailAddress().WithMessage("Email should contain maximum 256 characters");
+            RuleFor(x => x).Must(x => x.Password == x.ConfirmPassword).WithMessage("Incorrect Password. Try again");
         }
     }
 }
