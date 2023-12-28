@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using ProniaOnion.Application.Abstractions.Services;
 using ProniaOnion.Application.Dtos.Account;
+using ProniaOnion.Application.Dtos.Tokens;
 using ProniaOnion.Domain.Entities;
 
 namespace ProniaOnion.Persistance.Implementations.Services
@@ -20,16 +21,17 @@ namespace ProniaOnion.Persistance.Implementations.Services
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly IMapper _mapper;
-        
+        private readonly ITokenHandler _handler;
 
-        public AuthenticationService(UserManager<AppUser> userManager, IMapper mapper)
+        public AuthenticationService(UserManager<AppUser> userManager, IMapper mapper,ITokenHandler handler)
         {
             _userManager = userManager;
             _mapper = mapper;
+            _handler = handler;
            
         }
 
-        public async Task<string> Login(LoginDto dto)
+        public async Task<TokenResponseDto> Login(LoginDto dto)
         {
             AppUser user = await _userManager.FindByNameAsync(dto.UsernameOrEmail);
                 if (user is null)
@@ -39,7 +41,7 @@ namespace ProniaOnion.Persistance.Implementations.Services
             }
                 if(!await _userManager.CheckPasswordAsync(user,dto.Password)) throw new Exception("Username,Email or Password incorrect");
 
-
+            return _handler.CreateJwt(user,60);
                 
         }
 

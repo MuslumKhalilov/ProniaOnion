@@ -13,7 +13,7 @@ using ProniaOnion.Domain.Entities;
 
 namespace ProniaOnion.Infrastructure.Implementations
 {
-    internal class TokenHandler : ITokenHandler
+    public class TokenHandler : ITokenHandler
     {
         private readonly IConfiguration _configuration;
         public TokenHandler(IConfiguration configuration)

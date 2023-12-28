@@ -1,11 +1,12 @@
 using ProniaOnion.Persistance.ServiceRegistration;
 using ProniaOnion.Application.ServiceRegistration;
-
+using ProniaOnion.Infrastructure.ServiceRegistration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+builder.Services.AddInfrastructureServices();
 builder.Services.AddPersistenceServices(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddApplicationServices();
