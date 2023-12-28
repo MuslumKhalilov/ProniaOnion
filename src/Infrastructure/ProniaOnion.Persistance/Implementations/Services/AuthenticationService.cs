@@ -20,13 +20,13 @@ namespace ProniaOnion.Persistance.Implementations.Services
     {
         private readonly UserManager<AppUser> _userManager;
         private readonly IMapper _mapper;
-        private readonly IConfiguration _configuration;
+        
 
-        public AuthenticationService(UserManager<AppUser> userManager, IMapper mapper,IConfiguration configuration)
+        public AuthenticationService(UserManager<AppUser> userManager, IMapper mapper)
         {
             _userManager = userManager;
             _mapper = mapper;
-            _configuration = configuration;
+           
         }
 
         public async Task<string> Login(LoginDto dto)
@@ -40,18 +40,7 @@ namespace ProniaOnion.Persistance.Implementations.Services
                 if(!await _userManager.CheckPasswordAsync(user,dto.Password)) throw new Exception("Username,Email or Password incorrect");
 
 
-                var claims = new List<Claim> {
-                    new Claim(ClaimTypes.NameIdentifier, user.Id),
-                    new Claim(ClaimTypes.Name,user.UserName),
-                    new Claim(ClaimTypes.Email, user.Email),
-                    new Claim(ClaimTypes.GivenName, user.Name),
-                    new Claim(ClaimTypes.Surname, user.Surname)
-                    };
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
-            var credentials = new SigningCredentials(securityKey,SecurityAlgorithms.HmacSha256);
-            JwtSecurityToken token = new JwtSecurityToken(claims:claims,issuer: _configuration["Jwt:Issuer"], audience: _configuration["Jwt:Auidience"],signingCredentials:credentials,notBefore:DateTime.UtcNow,expires: DateTime.UtcNow.AddMinutes(5));
-            var handler = new JwtSecurityTokenHandler().WriteToken(token);
-            return handler;
+                
         }
 
         public async Task Register(RegisterDto dto)
