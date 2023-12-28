@@ -41,12 +41,15 @@ namespace ProniaOnion.Persistance.Implementations.Services
 
 
                 var claims = new List<Claim> {
+                    new Claim(ClaimTypes.NameIdentifier, user.Id),
                     new Claim(ClaimTypes.Name,user.UserName),
-                    new Claim(ClaimTypes.Email, user.Email)
+                    new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.GivenName, user.Name),
+                    new Claim(ClaimTypes.Surname, user.Surname)
                     };
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey,SecurityAlgorithms.HmacSha256);
-            JwtSecurityToken token = new JwtSecurityToken(claims:claims,issuer: _configuration["Jwt:Issuer"], audience: _configuration["Jwt:Auidience"],signingCredentials:credentials,expires: DateTime.UtcNow.AddMinutes(5));
+            JwtSecurityToken token = new JwtSecurityToken(claims:claims,issuer: _configuration["Jwt:Issuer"], audience: _configuration["Jwt:Auidience"],signingCredentials:credentials,notBefore:DateTime.UtcNow,expires: DateTime.UtcNow.AddMinutes(5));
             var handler = new JwtSecurityTokenHandler().WriteToken(token);
             return handler;
         }

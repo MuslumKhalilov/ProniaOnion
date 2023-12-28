@@ -24,17 +24,9 @@ namespace ProniaOnion.API.Controllers
         [HttpPost/*("{login}")*/]
         public async Task<IActionResult> Login([FromForm]LoginDto dto)
         {
-            try
-            {
-                string token = await _service.Login(dto);
-                if (string.IsNullOrEmpty(token)) return Unauthorized("Not Found");
-                return Ok(new {Token = token});
-            }
-            catch (Exception e)
-            {
-
-                return StatusCode(500, $"Inter");
-            }
+           
+            string token = await _service.Login(dto);
+            return Ok(token);
         }
     }
 }
