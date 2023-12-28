@@ -33,7 +33,7 @@ namespace ProniaOnion.Infrastructure.ServiceRegistration
                     ValidIssuer = configuration["Jwt:Issuer"],
                     ValidAudience = configuration["Jwt:Audience"],
                     IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:Key"])),
-                    LifetimeValidator = (notBefore,expired,security,param)=>expired>DateTime.UtcNow
+                    LifetimeValidator = (notBefore,expired,token,param) => token != null?expired> DateTime.UtcNow:false
                 };
             });
             services.AddAuthorization();

@@ -33,7 +33,7 @@ namespace ProniaOnion.Infrastructure.Implementations
                     };
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-            JwtSecurityToken token = new JwtSecurityToken(claims: claims, issuer: _configuration["Jwt:Issuer"], audience: _configuration["Jwt:Auidience"], signingCredentials: credentials, notBefore: DateTime.UtcNow, expires: DateTime.UtcNow.AddMinutes(5));
+            JwtSecurityToken token = new JwtSecurityToken(claims: claims, issuer: _configuration["Jwt:Issuer"], audience: _configuration["Jwt:Audience"], signingCredentials: credentials, notBefore: DateTime.UtcNow, expires: DateTime.UtcNow.AddMinutes(60));
             JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
             TokenResponseDto dto = new TokenResponseDto(handler.WriteToken(token), user.UserName, token.ValidTo);
             return dto;
