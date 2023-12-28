@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using ProniaOnion.Application.Abstractions.Services;
@@ -22,7 +23,7 @@ namespace ProniaOnion.Infrastructure.Implementations
         }
         public TokenResponseDto CreateJwt(AppUser user, int minutes)
         {
-            
+
             var claims = new List<Claim> {
                     new Claim(ClaimTypes.NameIdentifier, user.Id),
                     new Claim(ClaimTypes.Name,user.UserName),
@@ -34,7 +35,7 @@ namespace ProniaOnion.Infrastructure.Implementations
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             JwtSecurityToken token = new JwtSecurityToken(claims: claims, issuer: _configuration["Jwt:Issuer"], audience: _configuration["Jwt:Auidience"], signingCredentials: credentials, notBefore: DateTime.UtcNow, expires: DateTime.UtcNow.AddMinutes(5));
             JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
-            TokenResponseDto dto = new TokenResponseDto(handler.WriteToken(token),user.UserName,token.ValidTo);
+            TokenResponseDto dto = new TokenResponseDto(handler.WriteToken(token), user.UserName, token.ValidTo);
             return dto;
         }
     }

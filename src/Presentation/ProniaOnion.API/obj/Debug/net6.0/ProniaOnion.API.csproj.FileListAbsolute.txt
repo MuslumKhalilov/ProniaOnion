@@ -84,3 +84,4 @@ C:\Users\Muslum\Desktop\ProniaOnion\src\Presentation\ProniaOnion.API\bin\Debug\n
 C:\Users\Muslum\Desktop\ProniaOnion\src\Presentation\ProniaOnion.API\bin\Debug\net6.0\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\Muslum\Desktop\ProniaOnion\src\Presentation\ProniaOnion.API\bin\Debug\net6.0\ProniaOnion.Infrastructure.dll
 C:\Users\Muslum\Desktop\ProniaOnion\src\Presentation\ProniaOnion.API\bin\Debug\net6.0\ProniaOnion.Infrastructure.pdb
+C:\Users\Muslum\Desktop\ProniaOnion\src\Presentation\ProniaOnion.API\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
